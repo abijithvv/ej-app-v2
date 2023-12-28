@@ -20,7 +20,7 @@ public class Plans {
     private Long fee;
     private String planName;
     @Builder.Default
-    private Boolean status=true;
+    private String status="Active";
     @ManyToOne
     @JoinColumn(name = "fk_plan_durat_id")
     private PlanDuration planDuration;

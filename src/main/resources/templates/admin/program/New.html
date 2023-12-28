@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header th:replace="~{fragments/header :: header}"></header>
+
+<body>
+<main class="d-flex flex-nowrap">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+    <div class="container">
+        <h3>Create New Program</h3><br/>
+
+        <form th:action="@{/v2/programs/new}" th:object="${program}" method="post">
+            <div class="form-group col-md-12">
+                <label class="col-md-3" for="programName">Program Name:</label><br/>
+                <div class="col-md-6">
+                    <input type="text" id="programName" th:field="*{programName}" class="form-control" required>
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-success">Create Program</button>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</main>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+
+</body>
+</html>

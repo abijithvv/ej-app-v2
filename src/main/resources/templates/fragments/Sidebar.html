@@ -1,0 +1,63 @@
+<div th:fragment="sidebar">
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark"
+         style="width: 280px; height: 100%; min-height: 100vh;">
+<!--        <a href="/"-->
+<!--           class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">-->
+<!--            <svg class="bi pe-none me-2" width="40" height="32">-->
+<!--                <use xlink:href="#bootstrap"/>-->
+<!--            </svg>-->
+<!--            <span class="fs-4">EJ's-->
+<!--				Fitness Club</span>-->
+<!--        </a>-->
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+
+            <li><a href="/v2/programs" class="nav-link text-white">
+                <svg
+                        class="bi pe-none me-2" width="16" height="16">
+                    <use xlink:href="#speedometer2"/>
+                </svg>
+                Programs
+            </a></li>
+
+            <li><a href="/viewPlanDuration" class="nav-link text-white">
+                <svg
+                        class="bi pe-none me-2" width="16" height="16">
+                    <use xlink:href="#speedometer2"/>
+                </svg>
+                Plans and Fee
+            </a></li>
+            <li><a href="/viewMembers" class="nav-link text-white">
+                <svg
+                        class="bi pe-none me-2" width="16" height="16">
+                    <use xlink:href="#table"/>
+                </svg>
+                Members
+            </a></li>
+
+            <li><a href="#" class="nav-link text-white">
+                <svg
+                        class="bi pe-none me-2" width="16" height="16">
+                    <use xlink:href="#grid"/>
+                </svg>
+                Attendance
+            </a></li>
+            <li><a href="#" class="nav-link text-white">
+                <svg
+                        class="bi pe-none me-2" width="16" height="16">
+                    <use xlink:href="#people-circle"/>
+                </svg>
+                Demand
+            </a></li>
+
+            <li><a href="#" class="nav-link text-white">
+                <svg
+                        class="bi pe-none me-2" width="16" height="16">
+                    <use xlink:href="#table"/>
+                </svg>
+                Notification
+            </a></li>
+        </ul>
+        <hr>
+    </div>
+</div>

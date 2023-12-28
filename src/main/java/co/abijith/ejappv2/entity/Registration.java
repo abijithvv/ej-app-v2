@@ -27,7 +27,7 @@ public class Registration {
     @NonNull
     private Date doj;
     @Builder.Default
-    private Boolean status=true;
+    private String status="Active";
 
     @OneToMany(mappedBy = "registration", cascade = CascadeType.ALL)
     private List<MemberPlans> memberPlansList;

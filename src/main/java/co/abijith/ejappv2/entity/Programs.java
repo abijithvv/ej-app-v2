@@ -19,7 +19,7 @@ public class Programs {
     private Long id;
     private String programName;
     @Builder.Default
-    private Boolean status = true;
+    private String status = "Active";
 
     @OneToMany(mappedBy = "program", cascade = CascadeType.ALL)
     private List<PlanDuration> planDurationList;

@@ -8,3 +8,7 @@ spring:
       ddl-auto: create-drop
     generate-ddl: true
     show-sql: true
+  mvc:
+    view:
+      prefix: classpath:/templates/
+      suffix: .html

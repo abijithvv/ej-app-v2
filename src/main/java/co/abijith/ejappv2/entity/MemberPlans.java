@@ -25,7 +25,7 @@ public class MemberPlans {
     private Date fromDate;
     private Date toDate;
     @Builder.Default
-    private Boolean status = true;
+    private String status = "Active";
     private Integer notifyDay;
     private Date lastFeeGeneratedDate;
 

@@ -23,7 +23,7 @@ public class PlanDuration {
     @JoinColumn(name = "fk_program_id")
     private Programs program;
     @Builder.Default
-    private Boolean status = true;
+    private String status = "Active";
 
     @OneToMany(mappedBy = "planDuration", cascade = CascadeType.ALL)
     private List<Plans> plansList;

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<header th:replace="~{fragments/header :: header}"></header>
+
+<body>
+<main class="d-flex flex-nowrap">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+    <div class="container">
+        <h3 class="p-3">Program List</h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Sl No</th>
+                <th>Program</th>
+                <th>Status</th>
+                <th>Activate/Deactivate</th>
+                <th>Edit</th>
+                <th>Delete</th>
+                <!-- Add more columns as needed -->
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="program, iterStat : ${programs}">
+                <td th:text="${iterStat.count}"></td>
+                <td th:text="${program.programName}"></td>
+                <td th:text="${program.status}"></td>
+                <td>
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-info " role="button" href="#">Activate/Deactivate</a>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-primary " role="button" href="#">Edit</a>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-danger " role="button" href="#">Delete</a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="d-grid gap-2">
+            <a class="btn btn-success btn-block" role="button"
+               href="/v2/programs/new">Add New Program</a>
+        </div>
+
+    </div>
+</main>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>
