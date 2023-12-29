@@ -27,7 +27,7 @@
                 <td th:text="${program.status}"></td>
                 <td>
                     <div class="d-grid gap-2">
-                        <a class="btn btn-info " role="button" href="#">Activate/Deactivate</a>
+                        <a class="btn btn-info " role="button" th:href="@{'/v2/programs/status/'+${program.id}}">Activate/Deactivate</a>
                     </div>
                 </td>
 

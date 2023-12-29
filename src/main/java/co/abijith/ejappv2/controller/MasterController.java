@@ -5,12 +5,10 @@ import co.abijith.ejappv2.service.ProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/v2")
@@ -90,7 +88,11 @@ public class MasterController {
 //        return "redirect:/admin/programs";
 //    }
 
-    // Other methods for PlanDuration and Plans entities can be similarly implemented
-
+//     Handle toggling Activate/Deactivate program
+    @GetMapping("/programs/status/{id}")
+    public String updateProgram(@PathVariable Long id) {
+        programService.toggleProgramStatus(id);
+        return "redirect:/v2/programs";
+    }
 
 }
