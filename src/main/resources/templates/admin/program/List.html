@@ -15,9 +15,9 @@
                 <th>Program</th>
                 <th>Status</th>
                 <th>Activate/Deactivate</th>
-                <th>Edit</th>
-                <th>Delete</th>
-                <!-- Add more columns as needed -->
+<!--                <th>Edit</th>-->
+<!--                <th>Delete</th>-->
+                <th>Plan Durations</th>
             </tr>
             </thead>
             <tbody>
@@ -31,15 +31,20 @@
                     </div>
                 </td>
 
-                <td>
-                    <div class="d-grid gap-2">
-                        <a class="btn btn-primary " role="button" href="#">Edit</a>
-                    </div>
-                </td>
+<!--                <td>-->
+<!--                    <div class="d-grid gap-2">-->
+<!--                        <a class="btn btn-primary " role="button" href="#">Edit</a>-->
+<!--                    </div>-->
+<!--                </td>-->
 
+<!--                <td>-->
+<!--                    <div class="d-grid gap-2">-->
+<!--                        <a class="btn btn-danger " role="button" href="#">Delete</a>-->
+<!--                    </div>-->
+<!--                </td>-->
                 <td>
                     <div class="d-grid gap-2">
-                        <a class="btn btn-danger " role="button" href="#">Delete</a>
+                        <a class="btn btn-warning" role="button" th:href="@{'/v2/plandurations/program/'+${program.id}}">Plan Durations >></a>
                     </div>
                 </td>
             </tr>

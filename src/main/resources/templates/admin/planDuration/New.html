@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header th:replace="~{fragments/header :: header}"></header>
+<body>
+<main class="d-flex flex-nowrap">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+    <div class="container">
+        <h3>Create New Plan Duration for : <span th:text="${program.get().programName}"></span></h3><br/>
+
+        <form th:action="@{/v2/plandurations/new}" th:object="${planDuration}" method="post">
+            <input type="hidden" name="programId" th:value="${program.get().id}" />
+            <div class="form-group col-md-12">
+                <label class="col-md-3" for="planDurationName">Plan Duration Name:</label><br/>
+                <div class="col-md-6">
+                    <input type="text" id="planDurationName" th:field="*{planDurationName}" class="form-control" required>
+                </div>
+            </div>
+<br/>
+            <div class="form-group col-md-12">
+                <label class="col-md-3" for="monthCount">Month Count:</label><br/>
+                <div class="col-md-6">
+                    <input type="number" id="monthCount" th:field="*{monthCount}" class="form-control" required>
+                </div>
+            </div>
+<br/>
+            <!-- You can add more fields for other properties of PlanDuration here -->
+
+            <div class="row p-2">
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-success">Create Plan Duration</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+<!-- Add your footer content or th:replace statement here -->
+</body>
+</html>

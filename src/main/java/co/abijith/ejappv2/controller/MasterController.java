@@ -1,6 +1,8 @@
 package co.abijith.ejappv2.controller;
 
+import co.abijith.ejappv2.entity.PlanDuration;
 import co.abijith.ejappv2.entity.Programs;
+import co.abijith.ejappv2.service.PlanDurationService;
 import co.abijith.ejappv2.service.ProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,8 @@ public class MasterController {
 
     @Autowired
     ProgramService programService;
+    @Autowired
+    PlanDurationService planDurationService;
 
     //login page
     @GetMapping({"/login", "/"})
@@ -28,6 +32,10 @@ public class MasterController {
     public String home() {
         return "Home";
     }
+
+    //----------------------------------------------------------
+    //Program related controllers
+    //----------------------------------------------------------
 
     // Display all programs
     @GetMapping("/programs")
@@ -88,11 +96,41 @@ public class MasterController {
 //        return "redirect:/admin/programs";
 //    }
 
-//     Handle toggling Activate/Deactivate program
+    //     Handle toggling Activate/Deactivate program
     @GetMapping("/programs/status/{id}")
     public String updateProgram(@PathVariable Long id) {
         programService.toggleProgramStatus(id);
         return "redirect:/v2/programs";
+    }
+
+    //------------------------------------------------
+    //Plan Duration related controllers
+    //-----------------------------------------------
+    // Display all plan Durations
+    @GetMapping("/plandurations/program/{id}")
+    public String getPlanDurationsBasedOnProgramId(@PathVariable Long id, Model model) {
+        Optional<Programs> program = programService.findProgramById(id);
+        List<PlanDuration> planDuration = planDurationService.fetchPlanDurationsByProgramId(id);
+        model.addAttribute("planDuration", planDuration);
+        model.addAttribute("program", program);
+        return "admin/planDuration/DurationList";
+    }
+
+    //show the form to create an new program duration
+    @GetMapping("/plandurations/new/{progId}")
+    public String showCreatePlanDurationForm(@PathVariable Long progId, Model model) {
+        Optional<Programs> program = programService.findProgramById(progId);
+        model.addAttribute("program", program);
+        model.addAttribute("planDuration", new PlanDuration());
+        return "/admin/planDuration/New";
+    }
+
+    @PostMapping("/plandurations/new")
+    public String createPlanDuration(@ModelAttribute PlanDuration planDuration, @RequestParam Long programId) {
+        Optional<Programs> program=programService.findProgramById(programId);
+        planDuration.setProgram(program.get());
+        planDurationService.saveNewPlanDuration(planDuration);
+        return "redirect:/v2/plandurations/program/"+programId;
     }
 
 }

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Plan Durations</title>
+    <!-- Include your CSS and other head elements here -->
+</head>
+
+<body>
+<header th:replace="~{fragments/header :: header}"></header>
+
+<main class="d-flex flex-nowrap">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+    <div class="container">
+        <h3 class="p-3">Plan Durations for Program: <span th:text="${program.isPresent() ? program.get().programName : 'N/A'}"></span></h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Sl No</th>
+                <th>Plan Duration Name</th>
+                <th>Month Count</th>
+                <th>Status</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Assuming planDurations is the list of PlanDuration objects associated with the program -->
+            <tr th:each="planDuration, iterStat : ${planDuration}">
+                <td th:text="${iterStat.count}"></td>
+                <td th:text="${planDuration.planDurationName}"></td>
+                <td th:text="${planDuration.monthCount}"></td>
+                <td th:text="${planDuration.status}"></td>
+                <td>
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-info " role="button" href="#">Activate/Deactivate</a>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-warning " role="button" href="#">Plans >></a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="d-grid gap-2">
+            <!-- Adjust the href to navigate to the page where you add new Plan Durations -->
+            <a class="btn btn-success btn-block" role="button" th:href="@{'/v2/plandurations/new/'+${program.get().id}}">Add New Plan Duration</a>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+
+</html>
