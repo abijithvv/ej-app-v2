@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<header th:replace="~{fragments/header :: header}"></header>
+
+<main class="d-flex flex-nowrap">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+    <div class="container">
+        <h3 class="p-3">Plans for Program: <span th:text="${program.get().programName}"></span> and Plan Duration: <span th:text="${planDuration.get().planDurationName}"></span></h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Sl No</th>
+                <th>Plan Name</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Activate/Deactivate</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="plan, iterStat : ${plans}">
+                <td th:text="${iterStat.count}"></td>
+                <td th:text="${plan.planName}"></td>
+                <td th:text="${plan.fee}"></td>
+                <td th:text="${plan.status}"></td>
+                <td>
+                    <div class="d-grid gap-2">
+                        <!-- Adjust the href for the edit link -->
+                        <a class="btn btn-info" role="button" th:href="@{'/v2/plans/status/'+${plan.id}}">Avtivate/Deactivate</a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="d-grid gap-2">
+            <!-- Adjust the href to navigate to the page where you add new plans -->
+            <a class="btn btn-success btn-block" role="button" th:href="@{'/v2/plans/new/'+${planDuration.get().id}}">Add New Plan</a>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+
+</html>

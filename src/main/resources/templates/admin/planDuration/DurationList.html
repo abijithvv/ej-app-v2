@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <title>Plan Durations</title>
-    <!-- Include your CSS and other head elements here -->
-</head>
-
 <body>
 <header th:replace="~{fragments/header :: header}"></header>
 
@@ -25,7 +20,6 @@
             </tr>
             </thead>
             <tbody>
-            <!-- Assuming planDurations is the list of PlanDuration objects associated with the program -->
             <tr th:each="planDuration, iterStat : ${planDuration}">
                 <td th:text="${iterStat.count}"></td>
                 <td th:text="${planDuration.planDurationName}"></td>
@@ -33,13 +27,13 @@
                 <td th:text="${planDuration.status}"></td>
                 <td>
                     <div class="d-grid gap-2">
-                        <a class="btn btn-info " role="button" href="#">Activate/Deactivate</a>
+                        <a class="btn btn-info " role="button" th:href="@{'/v2/planduration/status/'+${planDuration.id}}">Activate/Deactivate</a>
                     </div>
                 </td>
 
                 <td>
                     <div class="d-grid gap-2">
-                        <a class="btn btn-warning " role="button" href="#">Plans >></a>
+                        <a class="btn btn-warning " role="button" th:href="@{'/v2/plans/view/'+${planDuration.id}}">Plans >></a>
                     </div>
                 </td>
             </tr>

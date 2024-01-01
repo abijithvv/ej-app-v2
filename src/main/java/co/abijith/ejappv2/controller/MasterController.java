@@ -1,8 +1,10 @@
 package co.abijith.ejappv2.controller;
 
 import co.abijith.ejappv2.entity.PlanDuration;
+import co.abijith.ejappv2.entity.Plans;
 import co.abijith.ejappv2.entity.Programs;
 import co.abijith.ejappv2.service.PlanDurationService;
+import co.abijith.ejappv2.service.PlanService;
 import co.abijith.ejappv2.service.ProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,8 @@ public class MasterController {
     ProgramService programService;
     @Autowired
     PlanDurationService planDurationService;
+    @Autowired
+    PlanService planService;
 
     //login page
     @GetMapping({"/login", "/"})
@@ -104,9 +108,9 @@ public class MasterController {
     }
 
     //------------------------------------------------
-    //Plan Duration related controllers
-    //-----------------------------------------------
-    // Display all plan Durations
+    //----Plan Duration related controllers-----------
+    //------------------------------------------------
+    // Display all plan Durations based on program id
     @GetMapping("/plandurations/program/{id}")
     public String getPlanDurationsBasedOnProgramId(@PathVariable Long id, Model model) {
         Optional<Programs> program = programService.findProgramById(id);
@@ -116,7 +120,7 @@ public class MasterController {
         return "admin/planDuration/DurationList";
     }
 
-    //show the form to create an new program duration
+    //show the form to create a new program duration
     @GetMapping("/plandurations/new/{progId}")
     public String showCreatePlanDurationForm(@PathVariable Long progId, Model model) {
         Optional<Programs> program = programService.findProgramById(progId);
@@ -125,6 +129,7 @@ public class MasterController {
         return "/admin/planDuration/New";
     }
 
+    // Handle form submission to create new plan duration
     @PostMapping("/plandurations/new")
     public String createPlanDuration(@ModelAttribute PlanDuration planDuration, @RequestParam Long programId) {
         Optional<Programs> program=programService.findProgramById(programId);
@@ -133,4 +138,42 @@ public class MasterController {
         return "redirect:/v2/plandurations/program/"+programId;
     }
 
+    //     Handle toggling Activate/Deactivate planDuration
+    @GetMapping("/planduration/status/{id}")
+    public String updateStatusPlanDuration(@PathVariable Long id) {
+       Long programId= planDurationService.togglePlanDurationStatus(id);
+        return "redirect:/v2/plandurations/program/"+programId;
+    }
+
+    //-----------------------------------------------------
+    //----Api for plans------------------------------------
+    //-----------------------------------------------------
+    //api to list plans based on a plan duration id
+
+    @GetMapping ("/plans/view/{id}")
+    public String getPlansBasedOnPlanDuration(@PathVariable Long id, Model model){
+        Optional<PlanDuration> planDuration=planDurationService.findPlanDurationById(id);
+        model.addAttribute("program",programService.findProgramById(planDuration.get().getProgram().getId()));
+        List<Plans> plans=planService.fetchAllPlansByPlanDurationId(id);
+        model.addAttribute("planDuration",planDuration);
+        model.addAttribute("plans",plans);
+        return "/admin/plans/PlanList";
+    }
+
+    // show form for adding new plan
+    @GetMapping("/plans/new/{planDurId}")
+    public String showFormForNewPlan(@PathVariable Long planDurId, Model model){
+        Optional<PlanDuration> planDuration=planDurationService.findPlanDurationById(planDurId);
+        model.addAttribute("planDuration", planDuration);
+        model.addAttribute("plan", new Plans());
+        return "admin/plans/New";
+    }
+
+    @PostMapping("plans/new")
+        public String createNewPlan(@RequestParam Long planDurationId, @ModelAttribute Plans plans){
+        Optional<PlanDuration> currentPlanDuration=planDurationService.findPlanDurationById(planDurationId);
+        plans.setPlanDuration(currentPlanDuration.get());
+        planService.saveNewPlan(plans);
+        return "redirect:/v2/plans/view/"+currentPlanDuration.get().getId();
+        }
 }
