@@ -2,6 +2,7 @@ package co.abijith.ejappv2.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -20,11 +21,13 @@ public class Registration {
     @NonNull
     private Integer admissionNo;
     private String gender;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dob;
     private String address;
     @NonNull
     private Long mobileNumber;
     @NonNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date doj;
     @Builder.Default
     private String status="Active";

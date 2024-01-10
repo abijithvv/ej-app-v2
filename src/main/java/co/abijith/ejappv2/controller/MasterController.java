@@ -132,17 +132,17 @@ public class MasterController {
     // Handle form submission to create new plan duration
     @PostMapping("/plandurations/new")
     public String createPlanDuration(@ModelAttribute PlanDuration planDuration, @RequestParam Long programId) {
-        Optional<Programs> program=programService.findProgramById(programId);
+        Optional<Programs> program = programService.findProgramById(programId);
         planDuration.setProgram(program.get());
         planDurationService.saveNewPlanDuration(planDuration);
-        return "redirect:/v2/plandurations/program/"+programId;
+        return "redirect:/v2/plandurations/program/" + programId;
     }
 
     //     Handle toggling Activate/Deactivate planDuration
     @GetMapping("/planduration/status/{id}")
     public String updateStatusPlanDuration(@PathVariable Long id) {
-       Long programId= planDurationService.togglePlanDurationStatus(id);
-        return "redirect:/v2/plandurations/program/"+programId;
+        Long programId = planDurationService.togglePlanDurationStatus(id);
+        return "redirect:/v2/plandurations/program/" + programId;
     }
 
     //-----------------------------------------------------
@@ -150,30 +150,38 @@ public class MasterController {
     //-----------------------------------------------------
     //api to list plans based on a plan duration id
 
-    @GetMapping ("/plans/view/{id}")
-    public String getPlansBasedOnPlanDuration(@PathVariable Long id, Model model){
-        Optional<PlanDuration> planDuration=planDurationService.findPlanDurationById(id);
-        model.addAttribute("program",programService.findProgramById(planDuration.get().getProgram().getId()));
-        List<Plans> plans=planService.fetchAllPlansByPlanDurationId(id);
-        model.addAttribute("planDuration",planDuration);
-        model.addAttribute("plans",plans);
+    @GetMapping("/plans/view/{id}")
+    public String getPlansBasedOnPlanDuration(@PathVariable Long id, Model model) {
+        Optional<PlanDuration> planDuration = planDurationService.findPlanDurationById(id);
+        model.addAttribute("program", programService.findProgramById(planDuration.get().getProgram().getId()));
+        List<Plans> plans = planService.fetchAllPlansByPlanDurationId(id);
+        model.addAttribute("planDuration", planDuration);
+        model.addAttribute("plans", plans);
         return "/admin/plans/PlanList";
     }
 
     // show form for adding new plan
     @GetMapping("/plans/new/{planDurId}")
-    public String showFormForNewPlan(@PathVariable Long planDurId, Model model){
-        Optional<PlanDuration> planDuration=planDurationService.findPlanDurationById(planDurId);
+    public String showFormForNewPlan(@PathVariable Long planDurId, Model model) {
+        Optional<PlanDuration> planDuration = planDurationService.findPlanDurationById(planDurId);
         model.addAttribute("planDuration", planDuration);
         model.addAttribute("plan", new Plans());
         return "admin/plans/New";
     }
 
+    // save new plan- handling the form data
     @PostMapping("plans/new")
-        public String createNewPlan(@RequestParam Long planDurationId, @ModelAttribute Plans plans){
-        Optional<PlanDuration> currentPlanDuration=planDurationService.findPlanDurationById(planDurationId);
+    public String createNewPlan(@RequestParam Long planDurationId, @ModelAttribute Plans plans) {
+        Optional<PlanDuration> currentPlanDuration = planDurationService.findPlanDurationById(planDurationId);
         plans.setPlanDuration(currentPlanDuration.get());
         planService.saveNewPlan(plans);
-        return "redirect:/v2/plans/view/"+currentPlanDuration.get().getId();
-        }
+        return "redirect:/v2/plans/view/" + currentPlanDuration.get().getId();
+    }
+
+    //     Handle toggling Activate/Deactivate planDuration
+    @GetMapping("/plans/status/{id}")
+    public String updateStatusPlan(@PathVariable Long id) {
+        Long planDurationId = planService.togglePlanStatus(id);
+        return "redirect:/v2/plans/view/" + planDurationId;
+    }
 }

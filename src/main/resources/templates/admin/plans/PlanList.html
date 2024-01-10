@@ -7,8 +7,10 @@
 <main class="d-flex flex-nowrap">
     <div th:replace="~{fragments/sidebar :: sidebar}"></div>
     <div class="container">
-        <h3 class="p-3">Plans for Program: <span th:text="${program.get().programName}"></span> and Plan Duration: <span th:text="${planDuration.get().planDurationName}"></span></h3>
-        <table class="table">
+        <h3 class="p-3">Plans for Program: <span th:text="${program.get().programName}"></span> and Plan Duration: <span
+                th:text="${planDuration.get().planDurationName}"></span></h3>
+        <table class="table table-striped"
+               style="width: 100%">
             <thead>
             <tr>
                 <th>Sl No</th>
@@ -35,12 +37,15 @@
         </table>
         <div class="d-grid gap-2">
             <!-- Adjust the href to navigate to the page where you add new plans -->
-            <a class="btn btn-success btn-block" role="button" th:href="@{'/v2/plans/new/'+${planDuration.get().id}}">Add New Plan</a>
+            <a class="btn btn-success btn-block" role="button" th:href="@{'/v2/plans/new/'+${planDuration.get().id}}">Add
+                New Plan</a>
         </div>
     </div>
 </main>
 
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>
+
+
 
 </html>

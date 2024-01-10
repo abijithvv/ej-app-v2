@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:fmt="http://www.thymeleaf.org/extras/spring-format">
+
+<header th:replace="~{fragments/header :: header}"></header>
+<body>
+<main class="d-flex flex-nowrap">
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+    <div class="container">
+        <h1 class="p-3">Manage Member</h1>
+        <table class="table table-striped" style="width: 100%">
+            <thead>
+            <tr>
+                <th>Admission No</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>DOB</th>
+                <th>Address</th>
+                <th>Mobile No</th>
+                <th>Parent Name</th>
+                <th>Date of Joining</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:text="${member.admission_no}"></td>
+                <td th:text="${member.name}"></td>
+                <td th:text="${member.gender}"></td>
+                <td><fmt:formatDate value="${member.dob}" pattern="dd-MM-yyyy" /></td>
+                <td th:text="${member.address}"></td>
+                <td th:text="${member.phone_num}"></td>
+                <td th:text="${member.parent_name}"></td>
+                <td><fmt:formatDate value="${member.doj}" pattern="dd-MM-yyyy" /></td>
+            </tr>
+            </tbody>
+        </table>
+        <br> <br>
+        <table class="table table-bordered">
+            <tr>
+                <td><a role="button" type="button" class="btn btn-outline-primary btn-lg" th:href="@{'v2/enrollPlan/' + ${member.id}}">Enroll New Plan</a></td>
+                <td><button type="button" class="btn btn-outline-secondary btn-lg" href="#">Mark Attendance</button></td>
+                <td><button type="button" class="btn btn-outline-success btn-lg" href="#">View Attendance</button></td>
+                <td><button type="button" class="btn btn-outline-danger btn-lg" href="#">Record Weight</button></td>
+                <td><button type="button" class="btn btn-outline-warning btn-lg" href="#">Diet Plan</button></td>
+                <td><button type="button" class="btn btn-outline-info btn-lg" href="#">Workout Schedule</button></td>
+                <td><button type="button" class="btn btn-outline-dark btn-lg" href="#">Manage Fee</button></td>
+            </tr>
+        </table>
+        <br> <br>
+        <h2 class="p-3">Enrolled Plans</h2>
+        <table class="table table-bordered">
+            <tr>
+                <th>Sl No</th>
+                <th>Program</th>
+                <th>Plan</th>
+                <th>Fee</th>
+                <th>From Date</th>
+                <th>To Date</th>
+                <th>Status</th>
+                <th>Deactivate</th>
+            </tr>
+            <tr th:each="memberPlan, stat : ${memberPlans}">
+                <td th:text="${stat.count}"></td>
+                <td th:text="${memberPlan.planId.planDuration.program.prog_name}"></td>
+                <td th:text="${memberPlan.planId.planDuration.duration_name}"></td>
+                <td th:text="${memberPlan.planId.fee}"></td>
+                <td th:text="${memberPlan.from_date}"></td>
+                <td th:text="${memberPlan.to_date}"></td>
+                <td th:text="${memberPlan.status}"></td>
+                <td>
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-info " role="button" href="#">Deactivate</a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</main>
+</body>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</html>

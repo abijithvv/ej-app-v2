@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PlanService {
@@ -19,5 +20,14 @@ public class PlanService {
 
     public void saveNewPlan(Plans plans) {
         plansRepo.save(plans);
+    }
+
+    public Long togglePlanStatus(Long id) {
+        Optional<Plans> existingPlan=plansRepo.findById(id);
+        existingPlan.ifPresent(plan -> {
+            plan.setStatus("Active".equals(plan.getStatus()) ? "Inactive" : "Active");
+            plansRepo.save(plan);
+        });
+        return existingPlan.get().getPlanDuration().getId();
     }
 }

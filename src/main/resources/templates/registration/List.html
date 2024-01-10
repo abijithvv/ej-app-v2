@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<header th:replace="~{fragments/header :: header}"></header>
+<body>
+
+<main class="d-flex flex-nowrap">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+    <div class="container">
+        <h3 class="p-3">Member Details</h3>
+        <div class="d-grid gap-2">
+            <a class="btn btn-success" role="button" href="/v2/registration/new">Add
+                New Member</a><br>
+        </div>
+        <table class="table table-striped" id="memberTable"
+               style="width: 100%">
+            <thead>
+            <tr>
+                <th>Sl No</th>
+                <th>Select</th>
+                <th>Name</th>
+                <th>Admission No</th>
+                <th>Gender</th>
+                <th>Date of Birth</th>
+                <th>Address</th>
+                <th>Mobile Number</th>
+                <th>Date of Joining</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="registration, itrStat : ${registration}">
+                <td th:text="${itrStat.count}"></td>
+                <td>
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-info" role="button" th:href="@{'/v2/registration/member/'+${registration.id}}"> >> </a>
+                    </div>
+                </td>
+                <td th:text="${registration.name}"></td>
+                <td th:text="${registration.admissionNo}"></td>
+                <td th:text="${registration.gender}"></td>
+                <td th:text="${#dates.format(registration.dob, 'yyyy-MM-dd')}"></td>
+                <td th:text="${registration.address}"></td>
+                <td th:text="${registration.mobileNumber}"></td>
+                <td th:text="${#dates.format(registration.doj, 'yyyy-MM-dd')}"></td>
+                <td th:text="${registration.status}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+<script
+        src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.4/datatables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#memberTable').DataTable({});
+    });
+</script>
+</html>
