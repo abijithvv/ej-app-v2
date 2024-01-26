@@ -36,9 +36,14 @@
                     <input type="date" class="form-control" id="dob" th:field="*{dob}" required>
                 </div>
             </div>
-
             <div class="form-group col-md-12">
-                <label for="address" class="col-sm-2 col-form-label">Address:</label>
+                <label for="parentName" class="col-sm-2 col-form-label">Name of Parent: (optional)</label>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="parentName" th:field="*{parentName}">
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="address" class="col-sm-2 col-form-label">Address: (optional)</label>
                 <div class="col-md-6">
                     <textarea class="form-control" id="address" th:field="*{address}"></textarea>
                 </div>

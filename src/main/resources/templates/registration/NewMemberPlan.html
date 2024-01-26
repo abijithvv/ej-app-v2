@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<header th:replace="~{fragments/header :: header}"></header>
+<body>
+<main class="d-flex flex-nowrap">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+    <div class="container">
+        <h3 class="p-3">Add New Member-Plan Enrollment</h3>
+        <h4 class="p-4">Name: <span th:text="${member.getName()}"></span></h4>
+        <form th:action="@{/enrollPlan/member}" th:object="${memberPlan}" method="post">
+            <!-- Program Dropdown -->
+            <div class="form-group col-md-12">
+                <label for="program" class="col-sm-2 col-form-label">Select Program:</label>
+                <div class="col-md-6">
+                    <select class="form-control" id="program" required>
+                        <option value="">Select Program</option>
+                        <!-- Dynamically populate options based on available programs -->
+                        <option th:each="prog : ${program}" th:value="${prog.id}" th:text="${prog.programName}"></option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Plan Dropdown -->
+            <div class="form-group col-md-12">
+                <label for="plan" class="col-sm-2 col-form-label">Plan:</label>
+                <div class="col-md-6">
+                    <select class="form-control" id="plan" th:field="*{plan}" required>
+                        <option value="">Select Plan</option>
+                        <!-- Dynamically populate options based on available plans -->
+                        <option th:each="p : ${plans}" th:value="${p}" th:text="${p.planName}"></option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- From Date -->
+            <div class="form-group row">
+                <label for="fromDate" class="col-sm-2 col-form-label">From Date:</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" id="fromDate" th:field="*{fromDate}" required>
+                </div>
+            </div>
+
+            <!-- To Date -->
+            <div class="form-group row">
+                <label for="toDate" class="col-sm-2 col-form-label">To Date:</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" id="toDate" th:field="*{toDate}">
+                </div>
+            </div>
+
+            <!-- Status -->
+            <div class="form-group row">
+                <label for="status" class="col-sm-2 col-form-label">Status:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="status" th:field="*{status}" required>
+                </div>
+            </div>
+
+            <!-- Notify Day -->
+            <div class="form-group row">
+                <label for="notifyDay" class="col-sm-2 col-form-label">Notify Day:</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" id="notifyDay" th:field="*{notifyDay}">
+                </div>
+            </div>
+
+            <!-- Last Fee Generated Date -->
+            <div class="form-group row">
+                <label for="lastFeeGeneratedDate" class="col-sm-2 col-form-label">Last Fee Generated Date:</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" id="lastFeeGeneratedDate"
+                           th:field="*{lastFeeGeneratedDate}">
+                </div>
+            </div>
+
+            <!-- Add other form fields based on the MemberPlans entity -->
+
+            <div class="form-group row">
+                <div class="col-sm-10 offset-sm-2">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+
+<!-- Optional: Add any additional JavaScript scripts here -->
+</body>
+
+</html>

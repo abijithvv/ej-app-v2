@@ -20,7 +20,6 @@
                 <th>Select</th>
                 <th>Name</th>
                 <th>Admission No</th>
-                <th>Gender</th>
                 <th>Date of Birth</th>
                 <th>Address</th>
                 <th>Mobile Number</th>
@@ -38,7 +37,6 @@
                 </td>
                 <td th:text="${registration.name}"></td>
                 <td th:text="${registration.admissionNo}"></td>
-                <td th:text="${registration.gender}"></td>
                 <td th:text="${#dates.format(registration.dob, 'yyyy-MM-dd')}"></td>
                 <td th:text="${registration.address}"></td>
                 <td th:text="${registration.mobileNumber}"></td>

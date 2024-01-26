@@ -24,6 +24,7 @@ public class Registration {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dob;
     private String address;
+    private String parentName;
     @NonNull
     private Long mobileNumber;
     @NonNull

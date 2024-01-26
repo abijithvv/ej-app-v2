@@ -4,7 +4,7 @@
 <header th:replace="~{fragments/header :: header}"></header>
 <body>
 <main class="d-flex flex-nowrap">
-    <div th:replace="fragments/sidebar :: sidebar"></div>
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
     <div class="container">
         <h1 class="p-3">Manage Member</h1>
         <table class="table table-striped" style="width: 100%">
@@ -18,25 +18,29 @@
                 <th>Mobile No</th>
                 <th>Parent Name</th>
                 <th>Date of Joining</th>
+                <th>Status</th>
+
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td th:text="${member.admission_no}"></td>
+                <td th:text="${member.admissionNo}"></td>
                 <td th:text="${member.name}"></td>
                 <td th:text="${member.gender}"></td>
-                <td><fmt:formatDate value="${member.dob}" pattern="dd-MM-yyyy" /></td>
+                <td th:text="${#dates.format(member.dob, 'dd-MM-yyyy')}"></td>
                 <td th:text="${member.address}"></td>
-                <td th:text="${member.phone_num}"></td>
-                <td th:text="${member.parent_name}"></td>
-                <td><fmt:formatDate value="${member.doj}" pattern="dd-MM-yyyy" /></td>
+                <td th:text="${member.mobileNumber}"></td>
+                <td th:text="${member.parentName}"></td>
+                <td th:text="${#dates.format(member.doj, 'dd-MM-yyyy')}"></td>
+                <td th:text="${member.status}"></td>
+
             </tr>
             </tbody>
         </table>
         <br> <br>
         <table class="table table-bordered">
             <tr>
-                <td><a role="button" type="button" class="btn btn-outline-primary btn-lg" th:href="@{'v2/enrollPlan/' + ${member.id}}">Enroll New Plan</a></td>
+                <td><a role="button" type="button" class="btn btn-outline-primary btn-lg" th:href="@{'/v2/enrollPlan/member/' + ${member.id}}">Enroll New Plan</a></td>
                 <td><button type="button" class="btn btn-outline-secondary btn-lg" href="#">Mark Attendance</button></td>
                 <td><button type="button" class="btn btn-outline-success btn-lg" href="#">View Attendance</button></td>
                 <td><button type="button" class="btn btn-outline-danger btn-lg" href="#">Record Weight</button></td>
