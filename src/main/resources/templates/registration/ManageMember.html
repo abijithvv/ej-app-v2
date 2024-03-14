@@ -64,11 +64,11 @@
             </tr>
             <tr th:each="memberPlan, stat : ${memberPlans}">
                 <td th:text="${stat.count}"></td>
-                <td th:text="${memberPlan.planId.planDuration.program.prog_name}"></td>
-                <td th:text="${memberPlan.planId.planDuration.duration_name}"></td>
-                <td th:text="${memberPlan.planId.fee}"></td>
-                <td th:text="${memberPlan.from_date}"></td>
-                <td th:text="${memberPlan.to_date}"></td>
+                <td th:text="${memberPlan.plan?.planDuration?.program?.programName}"></td>
+                <td th:text="${memberPlan.plan?.planDuration?.planDurationName}"></td>
+                <td th:text="${memberPlan.plan?.fee}"></td>
+                <td th:text="${memberPlan.fromDate}"></td>
+                <td th:text="${memberPlan.toDate}"></td>
                 <td th:text="${memberPlan.status}"></td>
                 <td>
                     <div class="d-grid gap-2">

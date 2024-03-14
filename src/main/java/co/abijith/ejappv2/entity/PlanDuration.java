@@ -1,5 +1,6 @@
 package co.abijith.ejappv2.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,12 +20,16 @@ public class PlanDuration {
     private Long id;
     private String planDurationName;
     private Integer monthCount;
+
     @ManyToOne
     @JoinColumn(name = "fk_program_id")
+    @JsonIgnore
     private Programs program;
+
     @Builder.Default
     private String status = "Active";
 
     @OneToMany(mappedBy = "planDuration", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Plans> plansList;
 }

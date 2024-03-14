@@ -18,6 +18,10 @@ public class PlanService {
         return plansRepo.findByPlanDurationId(planDurationId);
     }
 
+    public Optional<Plans> fetchPlanById(Long id){
+        return plansRepo.findById(id);
+    }
+
     public void saveNewPlan(Plans plans) {
         plansRepo.save(plans);
     }

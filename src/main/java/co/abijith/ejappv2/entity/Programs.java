@@ -1,5 +1,6 @@
 package co.abijith.ejappv2.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,5 +23,6 @@ public class Programs {
     private String status = "Active";
 
     @OneToMany(mappedBy = "program", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<PlanDuration> planDurationList;
 }

@@ -7,6 +7,7 @@ import co.abijith.ejappv2.service.PlanDurationService;
 import co.abijith.ejappv2.service.PlanService;
 import co.abijith.ejappv2.service.ProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -119,6 +120,12 @@ public class MasterController {
         model.addAttribute("program", program);
         return "admin/planDuration/DurationList";
     }
+    //return list of plan durations based on program id passed as parameter
+    @GetMapping("/fetchPlanDurations")
+    @ResponseBody
+    public ResponseEntity<List<PlanDuration>> fetchPlanDurationsByProgramId(@RequestParam Long programId){
+        return ResponseEntity.ok(planDurationService.fetchPlanDurationsByProgramId(programId));
+    }
 
     //show the form to create a new program duration
     @GetMapping("/plandurations/new/{progId}")
@@ -183,5 +190,11 @@ public class MasterController {
     public String updateStatusPlan(@PathVariable Long id) {
         Long planDurationId = planService.togglePlanStatus(id);
         return "redirect:/v2/plans/view/" + planDurationId;
+    }
+// return plans based on plan duration id
+    @GetMapping("/fetchPlans")
+    @ResponseBody
+    public ResponseEntity<List<Plans>> fetchPlansByProgramId(@RequestParam Long planDurationId){
+        return ResponseEntity.ok(planService.fetchAllPlansByPlanDurationId(planDurationId));
     }
 }
