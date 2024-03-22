@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Generate Monthly Fee Demand</title>
+    <header th:replace="~{fragments/header :: header}"></header>
+</head>
+<body>
+<main class="d-flex flex-nowrap">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+    <div class="container">
+        <h3>Generate Monthly Fee Demand</h3><br/>
+
+        <form th:action="@{/v2/demand/generate}" method="post">
+            <div class="form-group col-md-12">
+                <label class="col-md-3" for="programId">Select Program:</label><br/>
+                <div class="col-md-6">
+                    <select id="programId" name="programId" class="form-control" required>
+                        <option value="">Select Program</option>
+                        <!-- Populate options with available programs -->
+                        <option th:each="program : ${programs}" th:value="${program.id}" th:text="${program.programName}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <label class="col-md-3" for="planDurationId">Select Plan Duration:</label><br/>
+                <div class="col-md-6">
+                    <select id="planDurationId" name="planDurationId" class="form-control" required>
+                        <!-- Options will be populated based on selected program using AJAX -->
+                    </select>
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Admission Number</th>
+                            <th>Name</th>
+                            <th>Number of Dates Present</th>
+                            <th>Select</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- Members will be populated based on selected program and plan duration using AJAX -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-success">Generate Demand</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+
+<!-- Include AJAX script to populate plan durations based on selected program -->
+<script th:src="@{/js/populatePlanDurations.js}"></script>
+
+<!-- Include AJAX script to populate members based on selected program and plan duration -->
+<script th:src="@{/js/populateMembers.js}"></script>
+</body>
+</html>

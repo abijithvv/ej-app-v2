@@ -1,0 +1,16 @@
+
+/* Ensures the sidebar is visible by default */
+#sidebar {
+    width: 280px; /* Adjust based on your design */
+}
+
+/* Enhances responsiveness */
+@media (max-width: 992px) {
+    #sidebar {
+        width: 100%; /* Full width on smaller screens */
+        display: none; /* Hide the sidebar by default on smaller screens */
+    }
+}
+.submenu-item {
+    padding-left: 20px; /* Adjust as needed */
+}

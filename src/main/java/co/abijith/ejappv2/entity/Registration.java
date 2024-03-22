@@ -36,4 +36,8 @@ public class Registration {
     @OneToMany(mappedBy = "registration", cascade = CascadeType.ALL)
     private List<MemberPlans> memberPlansList;
 
+    @OneToMany(mappedBy = "registration", cascade = CascadeType.ALL)
+    private List<Attendance> attendanceList;
+
+
 }

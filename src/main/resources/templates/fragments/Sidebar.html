@@ -1,55 +1,55 @@
-<div th:fragment="sidebar">
-    <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark"
-         style="width: 280px; height: 100%; min-height: 100vh;">
-<!--        <a href="/"-->
-<!--           class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">-->
-<!--            <svg class="bi pe-none me-2" width="40" height="32">-->
-<!--                <use xlink:href="#bootstrap"/>-->
-<!--            </svg>-->
-<!--            <span class="fs-4">EJ's-->
-<!--				Fitness Club</span>-->
-<!--        </a>-->
-        <hr>
-        <ul class="nav nav-pills flex-column mb-auto">
+    <div class="offcanvas offcanvas-start text-bg-dark" id="sidebar" style="width: 280px;" th:fragment="sidebar">
+        <!-- Sidebar content -->
 
-            <li><a href="/v2/programs" class="nav-link text-white">
-                <svg
-                        class="bi pe-none me-2" width="16" height="16">
-                    <use xlink:href="#speedometer2"/>
-                </svg>
-                Programs & Plans
-            </a></li>
-            <li><a href="/v2/viewMembers" class="nav-link text-white">
-                <svg
-                        class="bi pe-none me-2" width="16" height="16">
-                    <use xlink:href="#table"/>
-                </svg>
-                Members
-            </a></li>
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px; height: 100%; min-height: 100vh;">
 
-            <li><a href="/v2/attendance" class="nav-link text-white">
-                <svg
-                        class="bi pe-none me-2" width="16" height="16">
-                    <use xlink:href="#grid"/>
-                </svg>
-                Attendance
-            </a></li>
-            <li><a href="#" class="nav-link text-white">
-                <svg
-                        class="bi pe-none me-2" width="16" height="16">
-                    <use xlink:href="#people-circle"/>
-                </svg>
-                Demand
-            </a></li>
+        <!--        <a href="/"-->
+            <!--           class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">-->
+            <!--            <svg class="bi pe-none me-2" width="40" height="32">-->
+            <!--                <use xlink:href="#bootstrap"/>-->
+            <!--            </svg>-->
+            <!--            <span class="fs-4">EJ's-->
+            <!--				Fitness Club</span>-->
+            <!--        </a>-->
 
-            <li><a href="#" class="nav-link text-white">
-                <svg
-                        class="bi pe-none me-2" width="16" height="16">
-                    <use xlink:href="#table"/>
-                </svg>
-                Notification
-            </a></li>
-        </ul>
-        <hr>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+
+                <li><a href="/v2/programs" class="nav-link text-white">
+                    <i class="fas fa-tachometer-alt me-2"></i>
+                    Programs & Plans
+                </a></li>
+                <li><a href="/v2/viewMembers" class="nav-link text-white">
+                    <i class="fa-solid fa-weight-scale me-2"></i>
+                    Members
+                </a></li>
+
+                <li>
+                    <a href="#attendanceSubMenu" class="nav-link text-white" data-bs-toggle="collapse" aria-expanded="false">
+                        <i class="far fa-calendar-alt me-2"></i>
+                        Attendance
+                    </a>
+                    <ul class="collapse list-unstyled" id="attendanceSubMenu">
+                        <li><a href="/v2/attendance/byDate" class="nav-link text-white submenu-item">
+                            <i class="fa-solid fa-shield-virus me-2"></i>By Date</a></li>
+                        <li><a href="/v2/attendance/byProgram" class="nav-link text-white submenu-item">
+                            <i class="fa-solid fa-puzzle-piece me-2"></i>
+                            By Program</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="nav-link text-white">
+                    <i class="fa-solid fa-receipt"></i>
+                    Demand
+                </a></li>
+
+                <li><a href="#" class="nav-link text-white">
+                    <svg
+                            class="bi pe-none me-2" width="16" height="16">
+                        <use xlink:href="#table"/>
+                    </svg>
+                    Notification
+                </a></li>
+            </ul>
+            <hr>
+        </div>
     </div>
-</div>

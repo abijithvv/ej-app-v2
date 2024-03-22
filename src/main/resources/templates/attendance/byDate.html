@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Mark Attendance</title>
+    <header th:replace="~{fragments/header :: header}"></header>
+</head>
+<body>
+<main class="d-flex flex-nowrap">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+    <div class="container">
+        <h3>Mark Attendance</h3><br/>
+
+        <form th:action="@{/v2/attendance/mark}" method="get">
+            <div class="form-group col-md-12">
+                <label class="col-md-3" for="attendanceDate">Attendance Date:</label><br/>
+                <div class="col-md-6">
+                    <input type="date" id="attendanceDate" name="attendanceDate" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <label class="col-md-3" for="programName">Program Name:</label><br/>
+                <div class="col-md-6">
+                    <select id="programName" name="programName" class="form-control" required>
+                        <option value="">Select Program</option>
+                        <!-- Populate options dynamically from your backend -->
+                        <option th:each="program : ${programs}" th:value="${program.id}" th:text="${program.programName}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary">Show Members</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Display members for selected program and date -->
+        <h4>Members Present</h4>
+        <form th:action="@{/v2/attendance/save}" method="post">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Attendance</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Iterate over members and display checkbox for each -->
+                <tr th:each="member, iterStat : ${members}">
+                    <td th:text="${iterStat.index + 1}"></td>
+                    <td th:text="${member.name}"></td>
+                    <td><input type="checkbox" th:name="'present[' + ${iterStat.index} + ']'" value="true"></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="row p-2">
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-success">Save Attendance</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

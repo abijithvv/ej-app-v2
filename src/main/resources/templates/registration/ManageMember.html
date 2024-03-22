@@ -41,12 +41,12 @@
         <table class="table table-bordered">
             <tr>
                 <td><a role="button" type="button" class="btn btn-outline-primary btn-lg" th:href="@{'/v2/enrollPlan/member/' + ${member.id}}">Enroll New Plan</a></td>
-                <td><button type="button" class="btn btn-outline-secondary btn-lg" href="#">Mark Attendance</button></td>
-                <td><button type="button" class="btn btn-outline-success btn-lg" href="#">View Attendance</button></td>
-                <td><button type="button" class="btn btn-outline-danger btn-lg" href="#">Record Weight</button></td>
-                <td><button type="button" class="btn btn-outline-warning btn-lg" href="#">Diet Plan</button></td>
-                <td><button type="button" class="btn btn-outline-info btn-lg" href="#">Workout Schedule</button></td>
-                <td><button type="button" class="btn btn-outline-dark btn-lg" href="#">Manage Fee</button></td>
+                <td><a role="button" type="button" class="btn btn-outline-secondary btn-lg" th:href="@{'/v2/attendance/bymember/'+${member.id}}">Mark Attendance</a></td>
+                <td><a role="button" type="button" class="btn btn-outline-success btn-lg" href="#">View Attendance</a></td>
+                <td><a role="button" type="button" class="btn btn-outline-danger btn-lg" href="#">Record Weight</a></td>
+                <td><a role="button" type="button" class="btn btn-outline-warning btn-lg" href="#">Diet Plan</a></td>
+                <td><a role="button" type="button" class="btn btn-outline-info btn-lg" href="#">Workout Schedule</a></td>
+                <td><a role="button" type="button" class="btn btn-outline-dark btn-lg" href="#">Manage Fee</a></td>
             </tr>
         </table>
         <br> <br>

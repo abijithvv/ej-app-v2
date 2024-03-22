@@ -51,10 +51,15 @@ public class RegistrationController {
     @GetMapping("/registration/member/{regId}")
     public String memberDetailsView(Model model, @PathVariable Long regId) {
         model.addAttribute("member", registrationService.getMemberById(regId).get());
-        model.addAttribute("memberPlans", memberPlanService.fetchAllMemberPlans());
+        model.addAttribute("memberPlans", memberPlanService.fetchMemberPlansByRegistrationId(regId).get());
         return "/registration/ManageMember";
     }
-
+//for testing fetchMemberPlansByRegistrationId method
+    @GetMapping("/planbyregid/{regId}")
+    @ResponseBody
+    public Optional<List<MemberPlans>> fetchMemberPlansByRegistrationId(@PathVariable Long regId){
+        return memberPlanService.fetchMemberPlansByRegistrationId(regId);
+    }
     //to show the form to add new plan for a member
     @GetMapping("/enrollPlan/member/{id}")
     public String showFormEnrollment(@PathVariable Long id, Model model) {

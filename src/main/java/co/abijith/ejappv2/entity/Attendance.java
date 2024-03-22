@@ -18,6 +18,6 @@ public class Attendance {
     private Date attendanceDate;
 
     @ManyToOne
-    @JoinColumn(name = "fk_member_plan_id")
-    private MemberPlans memberPlan;
+    @JoinColumn(name = "fk_registration_id")
+    private Registration registration;
 }

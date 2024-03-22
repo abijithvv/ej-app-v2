@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Attendance</title>
+    <header th:replace="~{fragments/header :: header}"></header>
+    <!-- Include Bootstrap DateRangePicker CSS and JS files -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<style>
+    /* Custom styling for the calendar */
+    .calendar-container {
+        max-width: 500px;
+        margin: auto;
+        background-color: #f0f8ff; /* Light blue background for the entire calendar area */
+        padding: 10px; /* Padding around the calendar for some spacing */
+        border-radius: 5px; /* Optional: Rounded corners for the calendar container */
+    }
+    .calendar-date {
+        float: left;
+        width: 14.28%; /* 7 days */
+        padding: 15px;
+        box-sizing: border-box;
+        text-align: center;
+        font-size: 20px;
+        border: 1px solid #dee2e6; /* Light grey border for each date box */
+        background-color: #ffffff; /* White background for date boxes to stand out */
+        margin: 2px; /* Margin between date boxes */
+        height: 70px; /* Set a fixed height for alignment */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .clear {
+        clear: both;
+    }
+</style>
+<body>
+<main class="d-flex flex-nowrap">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+    <div class="container">
+        <h3>Mark Attendance of: </h3><h3><span th:text="${member.name}"></span></h3><br/>
+        <div class="container mt-3">
+            <div class="calendar-container">
+                <form th:action="@{/v2/attendance/new}" th:object="${attendance}" method="post">
+                    <input type="hidden" name="memberid" th:value="${member.id}" />
+                <h4>Select Attendance Dates</h4>
+                <select id="monthSelector" class="form-control mb-2" style="width: 100px;"></select>
+                <select id="yearSelector" class="form-control mb-3" style="width: 100px;"></select>
+                <div id="calendar"></div>
+                <div class="clear"></div>
+                <button type="submit" id="saveAttendance" class="btn btn-primary mt-3">Save Attendance</button>
+                </form>
+            </div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const monthNames = ["January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"];
+                //const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+                const monthSelector = document.getElementById('monthSelector');
+                const yearSelector = document.getElementById('yearSelector');
+                const calendar = document.getElementById('calendar');
+                let selectedDates = [];
+
+                // Function to get the starting day of the week (Sunday: 0, Monday: 1, ..., Saturday: 6)
+                const getStartDayOfMonth = (month, year) => (new Date(year, month, 1)).getDay();
+
+                // Function to generate the calendar for a given month and year
+                function generateCalendar(month, year) {
+                    calendar.innerHTML = ''; // Clear the existing calendar
+
+                    // Add week names
+                    // const weekRow = document.createElement('div');
+                    // weekDays.forEach(day => {
+                    //     weekRow.innerHTML += `<div class="calendar-day">${day}</div>`;
+                    // });
+                    // calendar.appendChild(weekRow);
+
+                    const firstDay = getStartDayOfMonth(month, year); // Get the starting day of the month
+                    const daysInMonth = 32 - new Date(year, month, 32).getDate();
+
+                    // Adjust start day to Sunday (if it's not already)
+                    const startDay = (firstDay === 0) ? 7 : firstDay;
+
+                    // Create empty slots for days before the first day of the month
+                    for (let i = 0; i < startDay - 1; i++) {
+                        calendar.innerHTML += '<div class="calendar-date"></div>';
+                    }
+
+                    // Fill in the actual days of the month
+                    for (let day = 1; day <= daysInMonth; day++) {
+                        calendar.innerHTML += `<div class="calendar-date">
+<div class="form-check">
+<input class="form-check-input" type="checkbox" id="day${day}" class="date-checkbox" data-date="${year}-${month+1}-${day}">
+<label class="form-check-label" for="day${day}">${day}</label>
+</div>
+</div>`;
+                    }
+                }
+
+                // Populate month selector with options and set the current month as selected
+                monthNames.forEach((name, index) => {
+                    const option = new Option(name, index, index === new Date().getMonth(), index === new Date().getMonth());
+                    monthSelector.add(option);
+                });
+
+                // Populate year selector with options and set the current year as selected
+                const currentYear = new Date().getFullYear();
+                for (let i = currentYear - 5; i <= currentYear; i++) {
+                    const option = new Option(i, i, i === currentYear, i === currentYear);
+                    yearSelector.add(option);
+                }
+
+                // Function to generate the calendar when month or year changes
+                const generateCalendarOnChange = () => generateCalendar(monthSelector.value, yearSelector.value);
+                monthSelector.addEventListener('change', generateCalendarOnChange);
+                yearSelector.addEventListener('change', generateCalendarOnChange);
+
+                // Initially generate the calendar for the current month and year
+                generateCalendar(new Date().getMonth(), new Date().getFullYear());
+
+                // Handle saving selected dates
+                document.getElementById('saveAttendance').addEventListener('click', () => {
+                    selectedDates = []; // Clear previously selected dates
+                    document.querySelectorAll('.date-checkbox:checked').forEach(checkbox => {
+                        selectedDates.push(checkbox.dataset.date);
+                    });
+                    console.log('Selected Dates:', selectedDates);
+                    // Here, process the selected dates as needed
+                });
+            });
+        </script>
+
+
+
+        <!--        <form th:action="@{/v2/attendance/new}" th:object="${attendance}" method="post">-->
+<!--            <input type="hidden" id="attendanceDates" name="attendanceDates" value=""> &lt;!&ndash; Hidden input to store selected dates &ndash;&gt;-->
+
+<!--            <div class="row p-2">-->
+<!--                <div class="col-md-2">-->
+<!--                    <button type="submit" class="btn btn-success">Save Attendance</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </form>-->
+    </div>
+</main>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+
+</body>

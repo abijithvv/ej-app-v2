@@ -44,8 +44,4 @@ public class MemberPlans {
 
     private Date lastFeeGeneratedDate;
 
-    @OneToMany(mappedBy = "memberPlan", cascade = CascadeType.ALL)
-    private List<Attendance> attendanceList;
-
-
 }
